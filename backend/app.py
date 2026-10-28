@@ -62,7 +62,7 @@ def add_registration():
     data = request.get_json(silent=True) or {}
     name = str(data.get("name", "")).strip()
     event = str(data.get("event", "")).strip()
-    if os.namename or not event:
+    if not name or not event:
         return jsonify(error="name and event are required"), 400
     new_id = run_sql("INSERT INTO registrations (name, event) VALUES (%s, %s) RETURNING id",(name, event), fetch=True)[0][0]
     return jsonify(id=new_id, name=name, event=event), 201
